@@ -6,4 +6,3 @@ RUN pip install pystrich
 
 CMD [ "python", "./src/my_script.py" ]
 
-
