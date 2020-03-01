@@ -29,6 +29,18 @@ def division(a, b):
     return c
 
 
+def square(a):
+    a = int(a)
+    b = a ** 2
+    return b
+
+
+def sqrt(a, b):
+    a = int(a)
+    b = sqrt(a)
+    c = b
+    return c
+
 
 def mean(data):
     mean = data
@@ -55,6 +67,10 @@ class Calculator:
 
     def divide(self, a, b):
         self.result = division(a, b)
+        return self.result
+
+    def square(self, a):
+        self.result = square(a)
         return self.result
 
 

@@ -38,6 +38,16 @@ class MyTestCase(unittest.TestCase):
             self.assertAlmostEqual(self.calculator.result, float(row['Result']))
         pprint(test_data_division)
 
+    def test_square(self):
+        test_data_square = CsvReader('/src/Square.csv').data
+        for row in test_data_square:
+            result = int(row['Result'])
+            self.assertEqual(self.calculator.square(row['Value 1']), result)
+            self.assertEqual(self.calculator.result, result)
+            pprint(test_data_square)
+
+   
+
     def test_results_property(self):
         self.assertEqual(self.calculator.result, 0)
 
