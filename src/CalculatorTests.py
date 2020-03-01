@@ -31,6 +31,13 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(self.calculator.result, int(row['Result']))
         pprint(test_data_multiply)
 
+    def test_divide(self):
+        test_data_division = CsvReader('/src/Division.csv').data
+        for row in test_data_division:
+            self.assertAlmostEqual(self.calculator.divide(row['Value 1'], row['Value 2']), float(row['Result']))
+            self.assertAlmostEqual(self.calculator.result, float(row['Result']))
+        pprint(test_data_division)
+
     def test_results_property(self):
         self.assertEqual(self.calculator.result, 0)
 
