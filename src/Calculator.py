@@ -35,11 +35,10 @@ def square(a):
     return b
 
 
-def sqrt(a, b):
-    a = int(a)
-    b = sqrt(a)
-    c = b
-    return c
+def sqrt(a):
+    a = float(a)
+    b = a ** .5
+    return b
 
 
 def mean(data):
@@ -71,6 +70,10 @@ class Calculator:
 
     def square(self, a):
         self.result = square(a)
+        return self.result
+
+    def sqrt(self, a):
+        self.result = sqrt(a)
         return self.result
 
 
