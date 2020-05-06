@@ -95,18 +95,6 @@ def api_retrieve(car_id) -> str:
     return resp
 
 
-@app.route('/api/v1/cars/', methods=['POST'])
-def api_add() -> str:
-    content = request.json
-    cursor = mysql.get_db().cursor()
-    inputData = (content['Year'], content['Mileage'], content['Price'])
-    sql_insert_query = """INSERT INTO tblFordImport (Year,Mileage,Price) VALUES (%s, %s,%s) """
-    cursor.execute(sql_insert_query, inputData)
-    mysql.get_db().commit()
-    resp = Response(status=201, mimetype='application/json')
-    return resp
-
-
 @app.route('/api/v1/cars/<int:car_id>', methods=['PUT'])
 def api_edit(car_id) -> str:
     cursor = mysql.get_db().cursor()
@@ -114,6 +102,18 @@ def api_edit(car_id) -> str:
     inputData = (content['Year'], content['Mileage'], content['Price'])
     sql_update_query = """UPDATE tblFordImport t SET t.Year = %s, t.Mileage = %s, t.Price = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=201, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cars/', methods=['POST'])
+def api_add() -> str:
+    content = request.json
+    cursor = mysql.get_db().cursor()
+    inputData = (content['Year'], content['Mileage'], content['Price'])
+    sql_insert_query = """INSERT INTO tblFordImport (Year,Mileage,Price) VALUES (%s, %s,%s) """
+    cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
