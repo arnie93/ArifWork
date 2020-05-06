@@ -44,7 +44,7 @@ def form_edit_get(car_id):
 @app.route('/edit/<int:car_id>', methods=['POST'])
 def form_update_post(car_id):
     cursor = mysql.get_db().cursor()
-    inputData = (request.form.get('Year'), request.form.get('Mileage'), request.form.get('Price'), hw_id)
+    inputData = (request.form.get('Year'), request.form.get('Mileage'), request.form.get('Price'), car_id)
     sql_update_query = """UPDATE tblFordImport t SET t.Year= %s, t.Mileage = %s, t.Price = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
