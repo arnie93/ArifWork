@@ -75,5 +75,59 @@ def form_delete_post(car_id):
     return redirect("/", code=302)
 
 
+@app.route('/api/v1/cars', methods=['GET'])
+def api_browse() -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblFordImport')
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cars/<int:car_id>', methods=['GET'])
+def api_retrieve(car_id) -> str:
+    cursor = mysql.get_db().cursor()
+    cursor.execute('SELECT * FROM tblFordImport WHERE id=%s', car_id)
+    result = cursor.fetchall()
+    json_result = json.dumps(result);
+    resp = Response(json_result, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cars/<int:car_id>', methods=['PUT'])
+def api_edit(car_id) -> str:
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['Year'], content['Mileage'], content['Price'] , car_id)
+    sql_update_query = """UPDATE tblFordImport t SET t.Year = %s, t.Mileage = %s, t.Year = %s WHERE t.id = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cars/', methods=['POST'])
+def api_add() -> str:
+    content = request.json
+    cursor = mysql.get_db().cursor()
+    inputData = (content['Year'], content['Mileage'], content['Price'])
+    sql_insert_query = """INSERT INTO tblFordImport (Year,Mileage,Price) VALUES (%s, %s,%s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=201, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/cars/<int:car_id>', methods=['DELETE'])
+def api_delete(car_id) -> str:
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM tblFordImport WHERE id = %s """
+    cursor.execute(sql_delete_query, car_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
