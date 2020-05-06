@@ -99,11 +99,11 @@ def api_retrieve(car_id) -> str:
 def api_edit(car_id) -> str:
     cursor = mysql.get_db().cursor()
     content = request.json
-    inputData = (content['Year'], content['Mileage'], content['Price'])
-    sql_update_query = """UPDATE tblFordImport t SET t.Year = %s, t.Mileage = %s, t.Price = %s WHERE t.id = %s """
+    inputData = (content['Year'], content['Mileage'], content['Price'] , car_id)
+    sql_update_query = """UPDATE tblFordImport t SET t.Year = %s, t.Mileage = %s, t.Year = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
-    resp = Response(status=201, mimetype='application/json')
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
@@ -119,13 +119,13 @@ def api_add() -> str:
     return resp
 
 
-@app.route('/api/cars/<int:car_id>', methods=['DELETE'])
+@app.route('/api/v1/cars/<int:car_id>', methods=['DELETE'])
 def api_delete(car_id) -> str:
     cursor = mysql.get_db().cursor()
     sql_delete_query = """DELETE FROM tblFordImport WHERE id = %s """
     cursor.execute(sql_delete_query, car_id)
     mysql.get_db().commit()
-    resp = Response(status=210, mimetype='application/json')
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
