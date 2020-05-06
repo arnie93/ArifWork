@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/cars/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="Year">Year</label>
+            <input id="Year" type="text" class="form-control" placeholder="Year" name="Year">
+        </div>
+        <div class="col">
+            <label for="Mileage">Mileage</label>
+            <input id="Mileage" type="text" class="form-control" placeholder="Mileage"
+                   name="Mileage">
+        </div>
+        <div class="col">
+            <label for="Price">Price</label>
+            <input id="Price" type="text" class="form-control" placeholder="Price" name="Price">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Success</button>
+
+</form>
+
+{% endblock %}

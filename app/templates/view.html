@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card" class="m-5 p-2">
+    <h5 class="card-title">{{ car.Year }}</h5>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ car.Mileage }}</li>
+        <li class="list-group-item">{{ car.Price }}</li>
+
+    </ul>
+    <div class="card-body">
+        <a href="/edit/{{car.id}}" class="card-link btn btn-primary">edit</a>
+    </div>
+</div>
+<form action="/delete/{{car.id}}" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+
+
+{% endblock %}
